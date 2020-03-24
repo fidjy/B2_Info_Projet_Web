@@ -1,0 +1,24 @@
+.height-nav-bar {
+    height: 100%;
+}
+
+.slot-container,
+.container {
+    max-width: 99vw;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    top: 128px;
+    margin-right: initial;
+    margin-left: initial;
+}
+
+.overflow-y-auto {
+    overflow-y: scroll;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

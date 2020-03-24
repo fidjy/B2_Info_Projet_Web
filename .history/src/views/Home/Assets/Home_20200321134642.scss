@@ -1,0 +1,72 @@
+.center-block {
+    height: 80%;
+}
+
+.mb-1 {
+    height: 74px !important;
+}
+
+.theme--dark.v-select .v-select__selection--comma {
+    color: #bfcbd3 !important;
+}
+
+.row {
+    margin: 0px !important;
+}
+
+.col-lg-3 {
+    max-width: 23% !important;
+}
+
+.picture-restaurant {
+    height: 100%;
+    flex: 0 0 auto !important;
+}
+
+.container-picture-resto {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-picture-resto {
+    overflow: hidden;
+    width: 90%;
+    height: 90%;
+}
+
+.restaurant-name {
+    padding: 0px 0px 20px 5% !important;
+}
+
+.restaurant-stars {
+    padding: 0px 5% 20px 0px !important;
+}
+
+.description-restaurant {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circular {
+    color: white !important;
+}
+
+.button-heart {
+    border-style: none !important;
+}
+
+.container-dishes {
+    width: 100%;
+}
+
+.dish {}

@@ -1,0 +1,122 @@
+.center-block {
+    height: 80%;
+}
+
+.mb-1 {
+    height: 74px !important;
+}
+
+.theme--dark.v-select .v-select__selection--comma {
+    color: #bfcbd3 !important;
+}
+
+.row {
+    margin: 0px !important;
+}
+
+.picture-restaurant {
+    height: 100%;
+    flex: 0 0 auto !important;
+}
+
+.container-picture-resto {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-picture-resto {
+    overflow: hidden;
+    width: 90%;
+    height: 90%;
+}
+
+.restaurant-name {
+    padding: 0px 0px 20px 5% !important;
+}
+
+.restaurant-stars {
+    padding: 0px 5% 20px 0px !important;
+}
+
+.description-restaurant {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circular {
+    color: white !important;
+}
+
+.button-heart {
+    position: absolute;
+    z-index: 1;
+    border-style: none !important;
+}
+
+.router-link-sing-in {
+    position: relative;
+    z-index: 2;
+    margin-right: 0% !important;
+}
+
+.container-dishes {
+    width: 100%;
+}
+
+.dish {
+    max-width: 23.7% !important;
+}
+
+.box-shadow-customize {
+    box-shadow: 6px 7px 10px 4px rgba(119, 119, 119, 0.75);
+    -moz-box-shadow: 6px 7px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 6px 7px 10px 4px rgba(119, 119, 119, 0.75);
+}
+
+.v-alert {
+    margin: 0px;
+}
+
+.info-welcoming-container {
+    border-radius: 6px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 140px;
+    background-image: url('http://getwallpapers.com/wallpaper/full/5/d/3/1340885-most-popular-kawaii-food-wallpaper-1920x1080-tablet.jpg');
+}
+
+.wallpaper-filter {
+    background-color: rgba(89, 171, 227, .8) !important;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.info-welcoming {
+    background-color: rgba(89, 172, 227, 0) !important;
+    padding: 0% !important;
+    margin: 0% !important;
+    font-size: 20px !important;
+    color: white !important;
+    width: 40%;
+    height: 60%;
+}
+
+.v-alert:not(.v-sheet--tile) {
+    display: flex;
+    justify-content: center;
+}

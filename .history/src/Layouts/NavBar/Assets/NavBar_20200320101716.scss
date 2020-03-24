@@ -1,0 +1,113 @@
+.height-nav-bar {
+    height: 100%;
+}
+
+.slot-container {
+    max-width: 99vw;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    top: 128px;
+    margin-right: initial;
+    margin-left: initial;
+}
+
+.overflow-y-auto {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.v-label {
+    padding-left: 6px;
+}
+
+.col-md-3 {
+    max-width: 20%;
+    height: 100%;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+.v-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.v-text-field__details {
+    min-height: 0px !important;
+    height: 0px;
+    margin-bottom: 0px !important;
+}
+
+.v-text-field {
+    margin-bottom: 0px !important;
+}
+
+.v-messages {
+    height: 0px !important;
+    min-height: 0px !important;
+}
+
+.v-toolbar__title {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 8px;
+}
+
+.v-navigation-drawer {
+    height: 400px !important;
+}
+
+.Account-logo {
+    filter: invert(1);
+}
+
+input {
+    background-color: rgba(255, 255, 255, 0) !important;
+    border-color: rgba(255, 255, 255, 0) !important;
+}
+
+.col-md-3 {
+    margin-right: 30px;
+}
+
+.sign-in {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 45%;
+}
+
+.v-application a {
+    color: white !important;
+}
+
+.router-link-sing-in {
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .v-toolbar__content {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .v-card {
+        flex-direction: initial;
+    }
+}
