@@ -1,0 +1,31 @@
+.card-margin {
+    margin: 14px;
+}
+
+.restaurant-container {
+    width: 100%;
+}
+
+.restaurant-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restaurant-title {
+    justify-content: start;
+}
+
+.picture-restaurant {
+    display: flex;
+    align-items: center;
+    filter: blur(20px);
+    filter: brightness(50%);
+}
+
+.restaurant-presentation {
+    background-color: white;
+    position: absolute;
+    top: 15%;
+    left: 3.5%;
+}

@@ -1,0 +1,45 @@
+.buttons-collection {
+    position: sticky !important;
+    bottom: 30px !important;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    height: 50px;
+}
+
+.sticky {
+    border-style: none !important;
+}
+
+.outline-none {
+    outline: none !important;
+}
+
+.sticky-left {
+    left: 25px;
+}
+
+.sticky-left-2 {
+    left: 50px;
+}
+
+.delete {
+    background-color: rgb(194, 17, 40) !important;
+}
+
+.edit {
+    background-color: rgb(22, 212, 48) !important;
+}
+
+.create {
+    background-color: rgb(36, 80, 202) !important;
+}
+
+.container-menu {
+    width: 100%;
+    height: 100%;
+}
+
+.container-menu-v-card {
+    width: 90%;
+    height: 90%;
+}

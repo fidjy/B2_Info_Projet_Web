@@ -1,0 +1,24 @@
+.card-margin {
+    margin: 14px;
+}
+
+.restaurant-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.425);
+}
+
+.restaurant-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restaurant-title {
+    color: rgb(255, 255, 255);
+    justify-content: end;
+}
+
+.picture-restaurant {
+    display: flex;
+    align-items: center;
+}
