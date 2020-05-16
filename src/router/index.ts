@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import VueRouter from 'vue-router';
 
+import Account from '../views/Account/Account.vue';
 import AdminHome from '../views/AdminHome/AdminHome.vue';
 import AdminRestaurant from '../views/AdminRestaurant/AdminRestaurant.vue';
 import BugReport from '../views/BugReport/BugReport.vue';
@@ -30,7 +31,7 @@ const routes = [
     component: RestaurantDishes
   },
   {
-    path: '/Login/:propsAdresses',
+    path: '/Login',
     name: 'Login',
     meta: { layout: 'NavBar' },
     component: Login
@@ -82,6 +83,12 @@ const routes = [
     name: 'Purchase',
     meta: { layout: 'NavBar' },
     component: Purchase,
+  },
+  {
+    path: '/Account',
+    name: 'Account',
+    meta: { layout: 'NavBar' },
+    component: Account,
   },
 ]
 

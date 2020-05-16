@@ -16,6 +16,9 @@ Vue.use(VueCookies);
 
 Vue.config.productionTip = false;
 
+import axios from 'axios';
+axios.defaults.baseURL = 'https://localhost:8000';
+
 export default Vue.extend({
   name: "App",
 

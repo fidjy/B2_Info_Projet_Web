@@ -31,7 +31,7 @@
 
 .col-md-3 {
     height: 100%;
-    padding: 0px !important;
+    //padding: 0px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,16 +46,16 @@
 
 .v-text-field__details {
     height: 0px;
-    margin-bottom: 0px !important;
+    //margin-bottom: 0px !important;
 }
 
 .v-text-field {
-    margin-bottom: 0px !important;
+    //margin-bottom: 0px !important;
 }
 
 .v-messages {
-    height: 0px !important;
-    min-height: 0px !important;
+    //height: 0px !important;
+    //min-height: 0px !important;
 }
 
 .v-toolbar__title {
@@ -67,18 +67,14 @@
     overflow: visible;
 }
 
-.v-navigation-drawer {
-    height: 400px !important;
-}
-
 .Account-logo {
     filter: invert(1);
 }
 
 .title {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    padding-left: 0px !important;
+    //padding-top: 0px !important;
+    //padding-bottom: 0px !important;
+    //padding-left: 0px !important;
 }
 
 input {
@@ -88,6 +84,10 @@ input {
 
 .col-md-3 {
     margin-right: 30px;
+}
+
+.command_card {
+    margin-bottom: 20px;
 }
 
 .sign-in {
@@ -100,11 +100,11 @@ input {
 }
 
 .v-input__control {
-    flex-direction: row !important;
+    //flex-direction: row !important;
 }
 
 .v-application a {
-    color: white !important;
+    //color: white !important;
 }
 
 .router-link-sing-in {
@@ -115,6 +115,7 @@ input {
 .scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(68, 68, 92, 0.226) rgb(255, 255, 255);
+    overflow-y: scroll;
 }
 
 @media (max-width: 960px) {
@@ -151,7 +152,7 @@ input {
         max-height: 70px;
     }
     .v-image {
-        height: 220px !important;
+        //height: 220px !important;
     }
 }
 

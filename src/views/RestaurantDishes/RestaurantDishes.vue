@@ -42,9 +42,9 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn @click="addChoiceMenus(menu)" color="primary" outlined>add</v-btn>
+          <v-btn @click="addChoiceMenusFormules(menu)" color="primary" outlined>add</v-btn>
 
-          <v-btn @click="suppChoiceMenus(menu)" color="primary" outlined>cancel</v-btn>
+          <v-btn @click="suppChoiceMenusFormules(menu)" color="primary" outlined>cancel</v-btn>
         </v-card-actions>
         <v-overlay :value="overlay">
           <v-card class="overlay_choice" raised>
@@ -73,27 +73,27 @@
 
     <div class="menus_restaurant">
       <v-card
-        v-for="menu in menus"
-        :key="menu.name"
+        v-for="plat in plats"
+        :key="plat.name"
         class="mx-auto card_menus_restaurant"
         width="23vw"
         min-width="30px"
         raised
       >
-        <v-img class="white--text align-end" height="200px" :src="menu.picture"></v-img>
+        <v-img class="white--text align-end" height="200px" :src="plat.picture"></v-img>
 
-        <v-card-subtitle class="pb-4">{{ menu.name }}</v-card-subtitle>
+        <v-card-subtitle class="pb-4">{{ plat.name }}</v-card-subtitle>
 
         <v-card-text class="text--primary">
-          <div>{{ menu.description }}</div>
+          <div>{{ plat.description }}</div>
 
-          <div>{{ menu.price }} €</div>
+          <div>{{ plat.price }} €</div>
         </v-card-text>
 
         <v-card-actions>
-          <v-btn @click="addChoiceMenus(menu)" color="primary" outlined>add</v-btn>
+          <v-btn @click="addChoiceMenusPLat(plat)" color="primary" outlined>add</v-btn>
 
-          <v-btn @click="suppChoiceMenus(menu)" color="primary" outlined>cancel</v-btn>
+          <v-btn @click="suppChoiceMenusPLat(plat)" color="primary" outlined>cancel</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -101,68 +101,91 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "RestaurantDishes",
   data() {
     return {
-      menus: [
-        {
-          name: "le burger de cheeeeeeeeeeez nous",
-          picture:
-            "https://cac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcac.2F2018.2F09.2F25.2F03ab5e89-bad7-4a44-b952-b30c68934215.2Ejpeg/410x230/quality/80/crop-from/center/burger-maison.jpeg",
-          price: 12,
-          description: "bla bla bla"
-        },
-        {
-          name: "le burger de cheeeeeeeeeeez nous",
-          picture:
-            "https://cac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcac.2F2018.2F09.2F25.2F03ab5e89-bad7-4a44-b952-b30c68934215.2Ejpeg/410x230/quality/80/crop-from/center/burger-maison.jpeg",
-          price: 12,
-          description: "bla bla bla"
-        },
-        {
-          name: "le burger de cheeeeeeeeeeez nous",
-          picture:
-            "https://cac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcac.2F2018.2F09.2F25.2F03ab5e89-bad7-4a44-b952-b30c68934215.2Ejpeg/410x230/quality/80/crop-from/center/burger-maison.jpeg",
-          price: 12,
-          description: "bla bla bla"
-        },
-        {
-          name: "le burger du nord pas de galais",
-          picture:
-            "https://www.atelierdeschefs.com/media/recette-e29710-rougail-saucisse-du-sud-ouest.jpg",
-          price: 5,
-          description: "bla bla bla"
-        },
-        {
-          name: "la bonne fritas",
-          picture:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fries_2.jpg/1200px-Fries_2.jpg",
-          price: 2,
-          description: "bla bla bla"
-        },
-        {
-          name: "la fritas woula pas cher",
-          picture:
-            "https://i.f1g.fr/media/madame/orig/sites/default/files/img/2017/11/la-frite-est-elle-belge-ou-francaise-.jpg",
-          price: 1,
-          description: "bla bla oula"
-        }
-      ],
+      menus: [],
       choiceMenus: [],
       data: undefined,
       overlay: false,
-      radioGroup: 1
+      plats: [],
+      radioGroup: 1,
+      commandeNotFinishedId: ""
     };
   },
   methods: {
-    addChoiceMenus(menu) {
+    async addChoiceMenusPLat(plat) {
       this.overlay = !this.overlay;
-      console.log(menu);
+      await axios
+        .get("/api/users/" + this.$cookies.get("idUser"))
+        .then(response => {
+          const userCommandes = [];
+          for (const commande in response.data.Commandes) {
+            if (response.data.Commandes[commande].state == 0) {
+              this.commandeNotFinishedId =
+                response.data.Commandes[commande]["@id"];
+              console.log(response.data.Commandes[commande]);
+
+              for (const plat in response.data.Commandes[commande]["plats"]) {
+                console.log(
+                  response.data.Commandes[commande]["plats"][plat]["@id"]
+                );
+                userCommandes.push(
+                  response.data.Commandes[commande]["plats"][plat]["@id"]
+                );
+              }
+            }
+          }
+          
+
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
-    suppChoiceMenus(menu) {
-      console.log(menu);
-    }
+    async suppChoiceMenusPLat(plat) {
+      console.log(plat);
+    },
+    async getCommandStateZero() {}
+  },
+  async mounted() {
+    axios({
+      method: "get",
+      url: "/api/restaurants/" + JSON.parse(this.$route.params.restaurant).id
+    })
+      .then(response => {
+        for (const plat in response.data.plats) {
+          axios({
+            method: "get",
+            url: response.data.plats[plat]
+          })
+            .then(response => {
+              this.plats.push(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+
+        for (const item in response.data.formule) {
+          axios({
+            method: "get",
+            url: response.data.formule[item]["@id"]
+          })
+            .then(response => {
+              this.menus.push(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>

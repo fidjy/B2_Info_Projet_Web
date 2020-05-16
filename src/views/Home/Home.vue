@@ -8,6 +8,8 @@
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
+      no-data-text="loading . . ."
+      :loading="loadingDataHome"
     >
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1 elevation-24">
@@ -56,18 +58,18 @@
             <v-card>
               <v-row align="center" justify="center">
                 <v-item-group class="container-picture-resto">
-                  <v-item class="center-picture-resto" v-slot:default="{ active, toggle }">
+                  <v-item class="center-picture-resto" v-slot:default="{ active, toggle, liked }">
                     <div class="router-link-sing-in">
                       <div class="right-container-for-link-restaurant">
                         <router-link
                           class="right-part-link-restaurant"
-                          :to="{ name: 'RestaurantDishes', params: { restaurant: encodeURI(JSON.stringify(item)) } }"
+                          :to="{ name: 'RestaurantDishes', params: { restaurant: JSON.stringify(item) } }"
                         ></router-link>
                       </div>
                       <div class="left-container-for-link-restaurant">
                         <router-link
                           class="left-part-link-restaurant"
-                          :to="{ name: 'RestaurantDishes', params: { restaurant: encodeURI(JSON.stringify(item)) } }"
+                          :to="{ name: 'RestaurantDishes', params: { restaurant: JSON.stringify(item) } }"
                         ></router-link>
                       </div>
 
@@ -88,9 +90,30 @@
                           </v-row>
                         </template>
 
-                        <v-btn @click="toggle" class="button-heart" icon dark>
-                          <v-icon>{{ active ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
-                        </v-btn>
+
+
+                        <div v-if="checkFavorite(item.usersFavorits) || liked">
+                          <v-btn
+                            v-if="$cookies.get('log')"
+                            @click="changeLiked(liked), toggle, suppFavorit(item.id)"
+                            class="button-heart"
+                            icon
+                            dark
+                          >
+                            <v-icon>{{ active ? 'mdi-heart-outline' : 'mdi-heart' }}</v-icon>
+                          </v-btn>
+                        </div>
+                        <div v-else>
+                          <v-btn
+                            v-if="$cookies.get('log')"
+                            @click="toggle, addFavorit(item.id), active=true"
+                            class="button-heart"
+                            icon
+                            dark
+                          >
+                            <v-icon>{{ active ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+                          </v-btn>
+                        </div>
                       </v-img>
                     </div>
                   </v-item>
@@ -145,6 +168,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Home",
   data() {
@@ -157,115 +182,12 @@ export default {
       page: 1,
       itemsPerPage: 4,
       sortBy: "name",
-      keys: ["favoris", "tendance", "stars"],
-      items: [
-        {
-          name: "Burger king",
-          favoris: false,
-          tendance: true,
-          stars: 2.5,
-          picture: "https://images6.alphacoders.com/366/thumb-1920-366291.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "kfc",
-          favoris: false,
-          tendance: true,
-          stars: 3,
-          picture: "https://images5.alphacoders.com/444/thumb-1920-444393.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "pizza napolini",
-          favoris: false,
-          tendance: false,
-          stars: 5,
-          picture:
-            "https://5.imimg.com/data5/YS/TA/MY-13049124/restaurant-wallpaper-design-500x500.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "wtburger",
-          favoris: false,
-          tendance: false,
-          stars: 1.5,
-          picture: "https://images2.alphacoders.com/862/862730.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "lapastamanana",
-          favoris: true,
-          tendance: true,
-          stars: 3,
-          picture:
-            "https://www.pieuvre.ca/wp-content/uploads/2016/06/restaurant2-1.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "colopotilini",
-          favoris: false,
-          tendance: false,
-          stars: 4,
-          picture:
-            "https://cdn.wallpaper.com/main/styles/responsive_1460w_scale/s3/wallpaper_design_awards_2020_-_judges_pack1-36.jpg?itok=AEbbABwV",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "infractus",
-          favoris: true,
-          tendance: false,
-          stars: 5,
-          picture:
-            "https://4.imimg.com/data4/TS/MK/MY-310713/gf_002-500x500.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "turcikebab",
-          favoris: false,
-          tendance: false,
-          stars: 2.3,
-          picture: "https://wallpaperaccess.com/full/261577.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "kebababa Boss",
-          favoris: true,
-          tendance: false,
-          stars: 5,
-          picture:
-            "https://images-na.ssl-images-amazon.com/images/I/61NaHelfIzL._AC_.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "viens dancer ce soir !",
-          favoris: true,
-          tendance: true,
-          stars: 4.1,
-          picture:
-            "https://s.hdnux.com/photos/01/01/50/56/17206204/3/920x920.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        },
-        {
-          name: "li tourner resto",
-          favoris: false,
-          tendance: true,
-          stars: 3,
-          picture:
-            "https://artwallbazaar.com/wp-content/uploads/parisian-girl-french-fashion-wallpaper-mural-pink-restaurant.jpg",
-          description:
-            "sdbhqjdsbc hdbchDSQJ JSDB HDGFHSDVU jhzeucb hqgfiuqs hsqvhqsu hqsdgyuqsgdquysduqsdqkjq"
-        }
-      ]
+      keys: ["name", "tendance", "stars"],
+      items: [],
+      user: "",
+      loadingDataHome: false,
+      usersFavoriteList: "",
+      restaurantToAdd: ""
     };
   },
   computed: {
@@ -277,6 +199,12 @@ export default {
     }
   },
   methods: {
+    changeLiked(changeLiked) {
+      if(changeLiked != true && changeLiked != true){
+        return changeLiked=true;
+      }
+      return !changeLiked;
+    },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
     },
@@ -285,7 +213,92 @@ export default {
     },
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
+    },
+    checkFavorite(restaurantUserFavorit) {
+      if (this.$cookies.get("log")) {
+        for (let value in restaurantUserFavorit) {
+          value = ("'" + restaurantUserFavorit + "'").replace(
+            "/api/users/",
+            ""
+          );
+          if (value == "'" + this.$cookies.get("idUser") + "'") {
+            return true;
+          }
+        }
+        return false;
+      }
+    },
+    async suppFavorit(restaurantId) {
+      const favorit = [];
+
+      for (const value in this.user.favoritRestaurants) {
+        if (this.user.favoritRestaurants[value].id != restaurantId) {
+          favorit.push(this.user.favoritRestaurants[value]["@id"]);
+        }
+      }
+
+      await axios
+        .put("/api/users/" + this.$cookies.get("idUser"), {
+          favoritRestaurants: favorit
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    async addFavorit(restaurantId) {
+      await axios
+        .get("/api/restaurants/" + restaurantId)
+        .then(response => {
+          this.restaurantToAdd = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      const favorit = [];
+      favorit.push(this.restaurantToAdd["@id"]);
+
+      for (const value in this.user.favoritRestaurants) {
+        favorit.push(this.user.favoritRestaurants[value]["@id"]);
+      }
+
+      await axios
+        .put("/api/users/" + this.$cookies.get("idUser"), {
+          favoritRestaurants: favorit
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
+  },
+  mounted() {
+    axios
+      .get("/api/users/" + this.$cookies.get("idUser"))
+      .then(response => {
+        this.user = response.data;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    axios({
+      method: "get",
+      url: "/api/restaurants.json"
+    })
+      .then(response => {
+        this.items = response.data;
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    this.loadingDataHome = false;
   }
 };
 </script>

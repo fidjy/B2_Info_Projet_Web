@@ -9,12 +9,19 @@
             v-model="password"
             :label="passwordLabel"
             :outlined="outlined"
+            type="password"
           ></v-text-field>
           <v-btn class="login_button" large @click="login()" color="primary" outlined>Login</v-btn>
           <p class="text_no_account">
             No account yet ?
-            <router-link class="text_register" :to="{ name: 'RestaurantDishes' }">Register</router-link>
+            <router-link class="text_register" :to="{ name: 'Register' }">Register</router-link>
+            <v-text-field v-if="loading" color="success" loading disabled></v-text-field>
           </p>
+          <v-alert v-if="errorState" type="error">{{ errorMessage }}</v-alert>
+          <v-alert
+            v-if="errorState == false"
+            type="success"
+          >successful authentication, you will be redirected</v-alert>
         </div>
       </div>
     </div>
@@ -22,17 +29,22 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
     return {
-      email: "",
-      password: "",
+      email: "ouiwxcwc@gmail.com",
+      password: 'zaeazeé&"é"é&',
       emailLabel: "email",
       passwordLabel: "password",
       placeholder: "",
       outlined: true,
       counter: 0,
+      errorState: undefined,
+      errorMessage: "",
+      loading: false,
       streets: []
     };
   },
@@ -42,8 +54,43 @@ export default {
         this.streets.push(value);
       }
     },
-    login: function() {
-      console.log("login");
+    async login() {
+      let errorStatusAxios = "";
+      let errorStateAxios = false;
+      this.loading = true;
+      await axios
+        .post("/api/login_check", {
+          username: this.email,
+          password: this.password
+        })
+        .then(response => {
+          axios.defaults.headers.common = {
+            Authorization: `bearer ${response.data.token}`
+          };
+          this.$cookies.set("idUser", response.data.data.id);
+          this.$cookies.set("log", true);
+        })
+        .catch(function(error) {
+          errorStatusAxios = error;
+          errorStateAxios = true;
+          console.log("erreur");
+        });
+
+      // token = axios.defaults.headers.common.Authorization.replace(
+      //   "bearer ",
+      //   ""
+      // );
+
+      if (errorStateAxios) {
+        this.errorMessage = errorStatusAxios.response.data.message;
+      }
+      this.errorState = errorStateAxios;
+
+      if (!errorStateAxios) {
+        this.$router.replace({ path: "/" });
+      }
+
+      this.loading = false;
     }
   }
 };
