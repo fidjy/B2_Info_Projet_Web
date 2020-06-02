@@ -1,0 +1,21 @@
+.picker_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.picker {
+    margin: 20px;
+}
+
+.picker_router {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.picker_button {
+    margin: 20px;
+}

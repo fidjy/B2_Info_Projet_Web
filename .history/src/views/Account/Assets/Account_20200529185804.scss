@@ -1,0 +1,80 @@
+.account_container_global {
+    width: 100%;
+}
+
+.avatar_picture_container {
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 1;
+}
+
+.avatar_picture_container:hover {
+    opacity: 0.5;
+}
+
+.avatar_picture {
+    position: relative;
+}
+
+.avatar_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar_input {
+    height: 300px;
+    width: 300px;
+    position: flex;
+    align-items: flex-end;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0);
+    opacity: 0;
+}
+
+.container_avatar_and_role {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+}
+
+.account_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3vh;
+    height: 75%;
+    min-height: 400px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.change_button {
+    width: 30%;
+    margin: 10px;
+    min-width: 100px;
+}
+
+.text_field_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.password_text_field {
+    width: 60%;
+}
